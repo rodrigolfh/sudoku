@@ -55,6 +55,29 @@ def pistas_por_caja():
 
     return lista_pistas_por_caja
 
+def mostrar_sudoku(sudoku):
+    
+    print("---+---+---")
+
+    for item in sudoku:
+        if item[2] == {}:
+            print(" ", end='')
+        
+        else:
+            print(item[2], end='')
+        
+        if (sudoku.index(item)+1) % 9 == 0 :
+            print('')
+
+        if ((sudoku.index(item) + 1)% 27 == 0):
+            print("---+---+---")
+
+        elif ((sudoku.index(item) + 1) % 3 == 0) and ((sudoku.index(item) + 1) % 9 != 0) and ((sudoku.index(item) + 1)% 27 != 0):
+            #print(item[2], end='')
+            print("|", end='')
+
+    print('')
+
 
 def intento_sudoku():
     """
@@ -122,28 +145,32 @@ def hay_repetidos_fila(lista):
     slice_lista_hasta = 9
     
     for i in range(9):
-                
+        sublista = []       
         for casilla in lista[slice_lista_desde:slice_lista_hasta]:
-            lista_análisis_filas.append(casilla[2])
+            #lista_análisis_filas.append(casilla[2])
+            sublista.append(casilla[2])
             #print("fila---------:", lista_análisis_filas)
         #print("filas : ", lista_análisis_filas)
-        while {} in lista_análisis_filas:
-            lista_análisis_filas.remove({})
-        
+        while {} in sublista:
+            sublista.remove({})
+            #lista_análisis_filas.remove({})
         #print("filas : ", lista_análisis_filas) ######################aca debe estarel error
-        lista_análisis_filas.sort()
-        print("lista anilisis ordenada", lista_análisis_filas)
+        #lista_análisis_filas.sort()
+        sublista.sort()
+        #print("lista anilisis ordenada", lista_análisis_filas)
         item_anterior = 0
-        for item in lista_análisis_filas:
+        for item in sublista:
             
             if item_anterior == item:
-                print("Falseeeeeeeeeeeeeeeeeeeeeeeee")
+                print("-False-")
                 
                 return False
                 
                 
-            elif item_anterior != item:
+            else:
                 item_anterior = item
+
+        lista_análisis_filas.append(sublista)
         slice_lista_desde += 9
         slice_lista_hasta += 9
 
@@ -157,39 +184,17 @@ def probar_sudoku():
     recuento_intentos = 0
     while True:
         lista = intento_sudoku()
+        recuento_intentos = recuento_intentos + 1
         if hay_repetidos_fila(lista) == True:
-            recuento_intentos = recuento_intentos + 1
             break
 
+    mostrar_sudoku(lista)
     print("intentos: ", recuento_intentos)
 
     
     return lista
 
 
-
-def mostrar_sudoku(sudoku):
-    
-    print("---+---+---")
-
-    for item in sudoku:
-        if item[2] == {}:
-            print(" ", end='')
-        
-        else:
-            print(item[2], end='')
-        
-        if (sudoku.index(item)+1) % 9 == 0 :
-            print('')
-
-        if ((sudoku.index(item) + 1)% 27 == 0):
-            print("---+---+---")
-
-        elif ((sudoku.index(item) + 1) % 3 == 0) and ((sudoku.index(item) + 1) % 9 != 0) and ((sudoku.index(item) + 1)% 27 != 0):
-            #print(item[2], end='')
-            print("|", end='')
-
-    print('')
         
          
         
