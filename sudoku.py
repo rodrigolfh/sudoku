@@ -148,6 +148,7 @@ def hay_repetidos_fila(lista):
         sublista = []       
         for casilla in lista[slice_lista_desde:slice_lista_hasta]:
             #lista_análisis_filas.append(casilla[2])
+            
             sublista.append(casilla[2])
             #print("fila---------:", lista_análisis_filas)
         #print("filas : ", lista_análisis_filas)
@@ -176,7 +177,57 @@ def hay_repetidos_fila(lista):
 
     return True   
     
+
+
+def hay_repetidos_columna(lista):
+
+
+    lista_análisis_filas = []
+    lista_análisis_columnas = []
+    index_casilla = 0
+    
+    for i in range(9):
+        sublista = []       
+
+        for j in range(9):
+            #print(lista[index_casilla][2])
         
+            sublista.append(lista[index_casilla][2])
+            if index_casilla > 71:
+                index_casilla = 0
+            
+            else:
+                index_casilla += 9
+
+            #print("fila---------:", lista_análisis_filas)
+        #print("filas : ", lista_análisis_filas)
+        while {} in sublista:
+            sublista.remove({})
+        index_casilla += 1 + i
+            
+        #print("filas : ", lista_análisis_filas) ######################aca debe estarel error
+        #lista_análisis_filas.sort()
+        sublista.sort()
+        #print("lista anilisis ordenada", lista_análisis_filas)
+        item_anterior = 0
+        print("sublista: ", sublista)
+        for item in sublista:
+            
+            if item_anterior == item:
+                print("-False-")
+                
+                return False
+                
+                
+            else:
+                item_anterior = item
+
+        lista_análisis_filas.append(sublista)
+       
+
+    return True   
+    
+
 
 def probar_sudoku():
     
@@ -186,7 +237,8 @@ def probar_sudoku():
         lista = intento_sudoku()
         recuento_intentos = recuento_intentos + 1
         if hay_repetidos_fila(lista) == True:
-            break
+            if hay_repetidos_columna(lista) == True:
+                break
 
     mostrar_sudoku(lista)
     print("intentos: ", recuento_intentos)
