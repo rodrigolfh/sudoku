@@ -92,11 +92,11 @@ def intento_sudoku():
                 #print(key, key2, value2)
                 lista_análisis.append((key, key2, value2))
 
-        print(lista_análisis)
-        print("-")
+        #print(lista_análisis)
+        #print("-")
 
         lista_análisis.sort()
-        print(lista_análisis)
+        #print(lista_análisis)
 
         #ahora convertir el dict en una lista de tuplas en formato (caja, casilla, valor)
         lista_agrupada = []
@@ -104,7 +104,7 @@ def intento_sudoku():
             for j in range(1,4):
                 for item in lista_análisis:
                     if (str(i) in item[0]) and (str(j) in item[1]):
-                        print(item)
+                        #print(item)
                         lista_agrupada.append(item)
 
 
@@ -125,12 +125,12 @@ def hay_repetidos_fila(lista):
                 
         for casilla in lista[slice_lista_desde:slice_lista_hasta]:
             lista_análisis_filas.append(casilla[2])
-            print("fila---------:", lista_análisis_filas)
-        print("filas : ", lista_análisis_filas)
+            #print("fila---------:", lista_análisis_filas)
+        #print("filas : ", lista_análisis_filas)
         while {} in lista_análisis_filas:
             lista_análisis_filas.remove({})
         
-        print("filas : ", lista_análisis_filas)
+        #print("filas : ", lista_análisis_filas) ######################aca debe estarel error
         lista_análisis_filas.sort()
         print("lista anilisis ordenada", lista_análisis_filas)
         item_anterior = 0
@@ -153,16 +153,46 @@ def hay_repetidos_fila(lista):
 
 def probar_sudoku():
     
-    lista = intento_sudoku()
-
-    while lista == False:
-        lista = intento_sudoku()
-        hay_repetidos_fila(lista)
     
-    return True
+    recuento_intentos = 0
+    while True:
+        lista = intento_sudoku()
+        if hay_repetidos_fila(lista) == True:
+            recuento_intentos = recuento_intentos + 1
+            break
+
+    print("intentos: ", recuento_intentos)
+
+    
+    return lista
 
 
 
+def mostrar_sudoku(sudoku):
+    
+    print("---+---+---")
+
+    for item in sudoku:
+        if item[2] == {}:
+            print(" ", end='')
+        
+        else:
+            print(item[2], end='')
+        
+        if (sudoku.index(item)+1) % 9 == 0 :
+            print('')
+
+        if ((sudoku.index(item) + 1)% 27 == 0):
+            print("---+---+---")
+
+        elif ((sudoku.index(item) + 1) % 3 == 0) and ((sudoku.index(item) + 1) % 9 != 0) and ((sudoku.index(item) + 1)% 27 != 0):
+            #print(item[2], end='')
+            print("|", end='')
+
+    print('')
+        
+         
+        
          
 
         
